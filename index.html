@@ -41,7 +41,7 @@
     <div id="dateDisplay"></div>
 
     <div id="medList"></div>
-    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（恢复截图初始值）</button>
+    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（恢复正确初始值）</button>
     <div class="last-update" id="lastUpdateDisplay"></div>
 </div>
 
@@ -54,13 +54,12 @@
         { id: 'lamotrigine', name: 'Lamotrigine 拉莫 50mg' }
     ];
 
-    // 依據你的截圖設定精確初始庫存（包含零散在錢包與牙線盒的數量）
     let stock = JSON.parse(localStorage.getItem('pillStock')) || {
-        'vyvanse20': 22,  // 20 + 2 (钱包里)
-        'vyvanse30': 45,  // 45
-        'lora': 41,       // 40 + 1 (牙线盒里)
-        'zopiclone': 33,  // 33
-        'lamotrigine': 20 // 20
+        'vyvanse20': 22,
+        'vyvanse30': 45,
+        'lora': 41,
+        'zopiclone': 33,
+        'lamotrigine': 20
     };
 
     const todayStr = new Date().toLocaleDateString();
@@ -99,7 +98,7 @@
     }
 
     function resetAllData() {
-        if (confirm("确定要重置所有药物库存到截图的初始值吗？")) {
+        if (confirm("确定要重置所有药物库存到正确初始值吗？")) {
              localStorage.removeItem('pillStock');
              localStorage.removeItem('pillDailyRecord');
              location.reload();
