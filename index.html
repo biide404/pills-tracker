@@ -41,7 +41,7 @@
     <div id="dateDisplay"></div>
 
     <div id="medList"></div>
-    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（慎点）</button>
+    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（恢复截图初始值）</button>
     <div class="last-update" id="lastUpdateDisplay"></div>
 </div>
 
@@ -49,17 +49,18 @@
     const medications = [
         { id: 'vyvanse20', name: 'Vyvanse 20mg' },
         { id: 'vyvanse30', name: 'Vyvanse 30mg' },
-        { id: 'lora', name: '劳拉 1mg' },
-        { id: 'zopiclone', name: '佐匹克隆 7.5mg' },
-        { id: 'lamotrigine', name: 'Lamotrigine 50mg' }
+        { id: 'lora', name: 'Lorazepam 劳拉 1mg' },
+        { id: 'zopiclone', name: 'Zopiclone 佐匹 7.5mg' },
+        { id: 'lamotrigine', name: 'Lamotrigine 拉莫 50mg' }
     ];
 
+    // 依據你的截圖設定精確初始庫存（包含零散在錢包與牙線盒的數量）
     let stock = JSON.parse(localStorage.getItem('pillStock')) || {
-        'vyvanse20': 20,
-        'vyvanse30': 30,
-        'lora': 31,
-        'zopiclone': 30,
-        'lamotrigine': 60
+        'vyvanse20': 22,  // 20 + 2 (钱包里)
+        'vyvanse30': 45,  // 45
+        'lora': 41,       // 40 + 1 (牙线盒里)
+        'zopiclone': 33,  // 33
+        'lamotrigine': 20 // 20
     };
 
     const todayStr = new Date().toLocaleDateString();
@@ -74,7 +75,6 @@
         render();
     }
 
-    // 點 + 額外多吃，庫存就立刻減少；點 - 就加回庫存
     function updateExtra(medId, delta) {
         if (!dailyRecord.items[medId]) {
             dailyRecord.items[medId] = { checked: false, extra: 0 };
@@ -99,7 +99,7 @@
     }
 
     function resetAllData() {
-        if (confirm("确定要重置所有药物库存到初始值吗？")) {
+        if (confirm("确定要重置所有药物库存到截图的初始值吗？")) {
              localStorage.removeItem('pillStock');
              localStorage.removeItem('pillDailyRecord');
              location.reload();
