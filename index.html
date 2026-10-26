@@ -41,7 +41,7 @@
     <div id="dateDisplay"></div>
 
     <div id="medList"></div>
-    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（恢复正确初始值）</button>
+    <button class="btn-reset" onclick="resetAllData()">重置所有库存数据（恢复备忘录原数）</button>
     <div class="last-update" id="lastUpdateDisplay"></div>
 </div>
 
@@ -54,6 +54,7 @@
         { id: 'lamotrigine', name: 'Lamotrigine 拉莫 50mg' }
     ];
 
+    // 严格对应你截图里备忘录的原始库存数字
     let stock = JSON.parse(localStorage.getItem('pillStock')) || {
         'vyvanse20': 22,
         'vyvanse30': 45,
@@ -98,7 +99,7 @@
     }
 
     function resetAllData() {
-        if (confirm("确定要重置所有药物库存到正确初始值吗？")) {
+        if (confirm("确定要重置所有药物库存到备忘录的原始数量吗？")) {
              localStorage.removeItem('pillStock');
              localStorage.removeItem('pillDailyRecord');
              location.reload();
